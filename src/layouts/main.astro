@@ -1,0 +1,17 @@
+---
+import "../styles/main.css";
+---
+
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <title>{Astro.props.title}</title>
+  </head>
+  <body class:list={Astro.props.class}>
+    <slot />
+  </body>
+</html>
+
+<script src="../scripts/lenis"></script>
