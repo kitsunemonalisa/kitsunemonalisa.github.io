@@ -22,9 +22,13 @@ jobs:
     steps:
       - uses: actions/checkout@main
       - uses: oven-sh/setup-bun@main
-      - uses: withastro/action@main
+      - run: bun install
+      - run: bun --bun run build
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - uses: actions/upload-pages-artifact@main
+        with:
+          path: "./dist/"
   deploy:
     environment:
       name: github-pages
