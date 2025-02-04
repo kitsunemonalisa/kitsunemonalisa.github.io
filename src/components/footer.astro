@@ -1,0 +1,46 @@
+---
+import Links from "../components/links.astro";
+import { octokit } from "../scripts/octokit";
+import { user } from "../scripts/const";
+const data = await octokit.graphql(
+  `{
+    user(login:"${user}") {
+      login
+      url
+      websiteUrl
+      name
+      email
+      socialAccounts(first:4) {
+        edges {
+          node {
+            url
+          }
+        }
+      }
+    }
+  }`
+);
+---
+
+<>
+  <Links
+    links={[
+      ...(data?.user?.websiteUrl
+        ? [
+            {
+              href: data?.user?.websiteUrl,
+              slot: data?.user?.name ? data?.user?.name : "link-->",
+            },
+          ]
+        : []),
+      { href: data?.user?.url, slot: data?.user?.login },
+      ...(data?.user?.email
+        ? [{ href: `mailto:${data?.user?.email}`, slot: data?.user?.email }]
+        : []),
+      ...data?.user?.socialAccounts?.edges?.map((edge) => ({
+        href: edge?.node?.url,
+        slot: edge?.node?.url?.split("/").at(2),
+      })),
+    ]}
+  />
+</>

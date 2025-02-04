@@ -1,8 +1,16 @@
 ---
 import Layout from "../layouts/main.astro";
 import { user } from "../scripts/const";
+import Footer from "../components/footer.astro";
 ---
 
-<Layout title={user}>
-
+<Layout
+  title={user}
+  class="font-mono h-svh w-svw flex flex-col items-center justify-center"
+>
+  <header></header>
+  <main></main>
+  <footer>
+    <Footer />
+  </footer>
 </Layout>
