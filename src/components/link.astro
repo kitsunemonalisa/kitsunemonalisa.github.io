@@ -1,0 +1,15 @@
+<a
+  class:list={[
+    { "transition-all": Astro.props?.href },
+    { "text-black": Astro.props?.href },
+    { "hover:text-white": Astro.props?.href },
+    { "bg-white": Astro.props?.href },
+    { "hover:bg-black": Astro.props?.href },
+    "px-[0.3em]",
+    "text-[1em]",
+    "inline-flex",
+    "items-center",
+    "justify-center",
+  ]}
+  href={Astro.props?.href}><slot>{Astro.props?.href}</slot></a
+>
