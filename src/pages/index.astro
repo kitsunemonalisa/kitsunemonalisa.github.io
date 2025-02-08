@@ -1,6 +1,7 @@
 ---
 import Layout from "../layouts/main.astro";
 import { user } from "../scripts/const";
+import Pinned from "../components/pinned.astro";
 import Socials from "../components/socials.astro";
 ---
 
@@ -9,7 +10,9 @@ import Socials from "../components/socials.astro";
   class="font-mono min-h-svh min-w-svw flex flex-col items-center justify-center"
 >
   <header></header>
-  <main></main>
+  <main>
+    <Pinned />
+  </main>
   <footer>
     <Socials />
   </footer>

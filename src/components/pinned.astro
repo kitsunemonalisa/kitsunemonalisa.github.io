@@ -1,0 +1,46 @@
+---
+import Links from "./links.astro";
+import { octokit } from "../scripts/octokit";
+import { user } from "../scripts/const";
+const data = await octokit.graphql(
+  `{
+    user(login:"${user}") {
+      pinnedItems(first:6) {
+        edges {
+          node {
+            ... on Repository {
+              name
+              url
+              owner {
+                login
+                url
+              }
+              homepageUrl
+            }
+          }
+        }
+      }
+    }
+  }`
+);
+---
+
+<section class="flex flex-col">
+  {
+    data?.user?.pinnedItems?.edges?.map((edge) => (
+      <section class="flex flex-wrap">
+        <Links
+          links={[
+            { href: edge?.node?.owner?.url, slot: edge?.node?.owner?.login },
+            { slot: "-->" },
+            { href: edge?.node?.url, slot: edge?.node?.name },
+            ...(edge?.node?.homepageUrl ? [{ slot: "-->" }] : []),
+            ...(edge?.node?.homepageUrl
+              ? [{ href: edge?.node?.homepageUrl, slot: "link" }]
+              : []),
+          ]}
+        />
+      </section>
+    ))
+  }
+</section>
