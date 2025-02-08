@@ -22,23 +22,25 @@ const data = await octokit.graphql(
 );
 ---
 
-<Links
-  links={[
-    ...(data?.user?.websiteUrl
-      ? [
-          {
-            href: data?.user?.websiteUrl,
-            slot: data?.user?.name ? data?.user?.name : "link-->",
-          },
-        ]
-      : []),
-    { href: data?.user?.url, slot: data?.user?.login },
-    ...(data?.user?.email
-      ? [{ href: `mailto:${data?.user?.email}`, slot: data?.user?.email }]
-      : []),
-    ...data?.user?.socialAccounts?.edges?.map((edge) => ({
-      href: edge?.node?.url,
-      slot: edge?.node?.url?.split("/").at(2),
-    })),
-  ]}
-/>
+<section class="flex flex-wrap items-center justify-center">
+  <Links
+    links={[
+      ...(data?.user?.websiteUrl
+        ? [
+            {
+              href: data?.user?.websiteUrl,
+              slot: data?.user?.name ? data?.user?.name : "link-->",
+            },
+          ]
+        : []),
+      { href: data?.user?.url, slot: data?.user?.login },
+      ...(data?.user?.email
+        ? [{ href: `mailto:${data?.user?.email}`, slot: data?.user?.email }]
+        : []),
+      ...data?.user?.socialAccounts?.edges?.map((edge) => ({
+        href: edge?.node?.url,
+        slot: edge?.node?.url?.split("/").at(2),
+      })),
+    ]}
+  />
+</section>

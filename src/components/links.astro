@@ -1,21 +1,19 @@
-<section class="flex flex-wrap items-center justify-center">
-  {
-    Astro?.props?.links?.map((link) => (
-      <a
-        class:list={[
-          { "transition-all": link?.href },
-          { "text-black": link?.href },
-          { "hover:text-white": link?.href },
-          { "bg-white": link?.href },
-          { "hover:bg-black": link?.href },
-          "px-[0.3em]",
-          "text-[1em]",
-          "flex",
-          "items-center",
-          "justify-center",
-        ]}
-        href={link?.href}
-      >{link?.slot ? link?.slot : link?.href}</a>
-    ))
-  }
-</section>
+{
+  Astro?.props?.links?.map((link) => (
+    <a
+      class:list={[
+        { "transition-all": link?.href },
+        { "text-black": link?.href },
+        { "hover:text-white": link?.href },
+        { "bg-white": link?.href },
+        { "hover:bg-black": link?.href },
+        "px-[0.3em]",
+        "text-[1em]",
+        "flex",
+        "items-center",
+        "justify-center",
+      ]}
+      href={link?.href}
+    >{link?.slot ? link?.slot : link?.href}</a>
+  ))
+}
