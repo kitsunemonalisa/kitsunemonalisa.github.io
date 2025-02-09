@@ -1,0 +1,12 @@
+---
+import { Image } from "astro:assets";
+---
+
+<section class="h-full overflow-hidden rounded-full aspect-square">
+  <Image
+    src={Astro?.props?.src}
+    alt={Astro?.props?.alt ? Astro?.props?.alt : ""}
+    inferSize
+    class="size-full object-cover aspect-square select-none"
+  />
+</section>
