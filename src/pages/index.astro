@@ -7,11 +7,13 @@ import Socials from "../components/socials.astro";
 
 <Layout
   title={user}
-  class="font-mono min-h-svh min-w-svw flex flex-col items-center justify-center"
+  class="font-mono font-light text-[1em] p-[3em] min-h-svh min-w-svw flex flex-col gap-[3em] items-start justify-center"
 >
   <header></header>
-  <main>
-    <Pinned />
+  <main class="size-full flex-auto flex flex-wrap-reverse gap-[3em]">
+    <section class="self-start">
+      <Pinned />
+    </section>
   </main>
   <footer>
     <Socials />
