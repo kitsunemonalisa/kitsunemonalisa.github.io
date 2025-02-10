@@ -1,0 +1,29 @@
+---
+import Avatar from "./avatar.astro";
+import Link from "./link.astro";
+import { user } from "../scripts/const";
+import { octokit } from "../scripts/octokit";
+const data = await octokit.graphql(
+  `{
+    user(login:"${user}") {
+      name
+      websiteUrl
+      login
+      url
+      avatarUrl
+    }
+  }`
+);
+---
+
+<section class="flex flex-wrap items-center justify-start">
+  {
+    new URL(data?.user?.avatarUrl).searchParams.has("u") && (
+      <section class="size-[3.5em] p-[0.3em]">
+        <Avatar src={data?.user?.avatarUrl} />
+      </section>
+    )
+  }
+  <Link href={data?.user?.websiteUrl}>{data?.user?.name}</Link>
+  <Link href={data?.user?.url}>{data?.user?.login}</Link>
+</section>

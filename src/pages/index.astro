@@ -1,8 +1,7 @@
 ---
 import Layout from "../layouts/main.astro";
 import { user } from "../scripts/const";
-import Avatar from "../components/avatar.astro";
-import Link from "../components/link.astro";
+import Bar from "../components/bar.astro";
 import Pinned from "../components/pinned.astro";
 import Socials from "../components/socials.astro";
 import { octokit } from "../scripts/octokit";
@@ -10,10 +9,6 @@ const data = await octokit.graphql(
   `{
     user(login:"${user}") {
       name
-      websiteUrl
-      login
-      url
-      avatarUrl
     }
   }`
 );
@@ -23,16 +18,8 @@ const data = await octokit.graphql(
   title={data?.user?.name ? data?.user?.name : user}
   class="font-mono font-light text-[1em] p-[3em] min-h-svh min-w-svw flex flex-col gap-[3em] items-start justify-center"
 >
-  <header class="flex flex-wrap items-center justify-start">
-    {
-      new URL(data?.user?.avatarUrl).searchParams.has("u") && (
-        <section class="size-[3.5em] p-[0.3em]">
-          <Avatar src={data?.user?.avatarUrl} />
-        </section>
-      )
-    }
-    <Link href={data?.user?.websiteUrl}>{data?.user?.name}</Link>
-    <Link href={data?.user?.url}>{data?.user?.login}</Link>
+  <header>
+    <Bar />
   </header>
   <main class="size-full flex-auto flex flex-wrap-reverse gap-[3em]">
     <section class="self-start">
