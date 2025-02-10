@@ -9,6 +9,13 @@ const data = await octokit.graphql(
   `{
     user(login:"${user}") {
       name
+      pinnedItems(first:6) {
+        edges {
+          node {
+            ... on Repository {}
+          }
+        }
+      }
     }
   }`
 );
@@ -22,9 +29,13 @@ const data = await octokit.graphql(
     <Bar />
   </header>
   <main class="size-full flex-auto flex flex-wrap-reverse gap-[3em]">
-    <section class="self-start">
-      <Pinned />
-    </section>
+    {
+      data?.user?.pinnedItems?.edges?.length !== 0 && (
+        <section class="flex-auto self-start">
+          <Pinned />
+        </section>
+      )
+    }
   </main>
   <footer>
     <Socials />

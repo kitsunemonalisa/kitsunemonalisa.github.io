@@ -24,6 +24,10 @@ const data = await octokit.graphql(
       </section>
     )
   }
-  <Link href={data?.user?.websiteUrl}>{data?.user?.name}</Link>
-  <Link href={data?.user?.url}>{data?.user?.login}</Link>
+  {
+    data?.user?.name && (
+      <Link href={data?.user?.websiteUrl}>{data?.user?.name}</Link>
+    )
+  }
+  {data?.user?.login && <Link href={data?.user?.url}>{data?.user?.login}</Link>}
 </section>
