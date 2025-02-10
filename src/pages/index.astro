@@ -45,8 +45,10 @@ try {
   <main class="size-full flex-auto flex flex-wrap-reverse gap-[3em]">
     {
       pinned?.user?.pinnedItems?.edges?.length !== 0 && (
-        <section class="flex-auto self-start">
-          <Pinned />
+        <section class="flex-auto flex items-end">
+          <section class="sticky bottom-[3em]">
+            <Pinned />
+          </section>
         </section>
       )
     }
