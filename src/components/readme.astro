@@ -1,0 +1,13 @@
+---
+import { octokit } from "../scripts/octokit";
+import { user } from "../scripts/const";
+const readme = await octokit.rest.repos.getReadme({
+  owner: user,
+  repo: user,
+  mediaType: {
+    format: "html",
+  },
+});
+---
+
+<section set:html={readme.data} />

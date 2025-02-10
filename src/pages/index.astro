@@ -3,6 +3,7 @@ import Layout from "../layouts/main.astro";
 import { user } from "../scripts/const";
 import Bar from "../components/bar.astro";
 import Pinned from "../components/pinned.astro";
+import Readme from "../components/readme.astro";
 import Socials from "../components/socials.astro";
 import { octokit } from "../scripts/octokit";
 const data = await octokit.graphql(
@@ -25,6 +26,13 @@ const pinned = await octokit.graphql(
     }
   }`
 );
+let readme;
+try {
+  readme = await octokit.rest.repos.getReadme({
+    owner: user,
+    repo: user,
+  });
+} catch {}
 ---
 
 <Layout
@@ -39,6 +47,13 @@ const pinned = await octokit.graphql(
       pinned?.user?.pinnedItems?.edges?.length !== 0 && (
         <section class="flex-auto self-start">
           <Pinned />
+        </section>
+      )
+    }
+    {
+      readme && (
+        <section class="flex-auto">
+          <Readme />
         </section>
       )
     }
