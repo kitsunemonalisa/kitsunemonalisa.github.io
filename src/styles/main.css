@@ -8,10 +8,10 @@
   --font-mono: "JetBrains Mono", ui-monospace, monospace;
 }
 
-body {
-  @apply antialiased;
+:root {
+  scrollbar-width: none;
 }
 
-::-webkit-scrollbar {
-  @apply hidden;
+body {
+  @apply antialiased;
 }
