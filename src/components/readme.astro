@@ -24,11 +24,76 @@ const html = await unified()
   .use(remarkGFM)
   .use(remarkRehype, { allowDangerousHtml: true, clobberPrefix: "" })
   .use(rehypeRaw)
-  .use(rehypeSlug)
-  .use(rehypeAutolinkHeadings, { behavior: "wrap" })
   .use(rehypeSanitize, { clobber: undefined })
+  .use(rehypeSlug)
+  .use(rehypeAutolinkHeadings, {
+    behavior: "wrap",
+    properties: { "data-heading": true },
+  })
   .use(rehypeStringify)
   .process(readme.data);
 ---
 
 <article class="px-[0.3em]" set:html={html} />
+
+<style is:global>
+  @reference "../styles/main.css";
+  article {
+    @apply font-normal flex flex-col gap-[1em];
+    a:not([data-heading]) {
+      @apply transition-colors transition-discrete duration-150 delay-0 italic hover:not-italic text-black hover:text-white bg-white hover:bg-black px-[0.3em] text-[1em] inline-flex items-center justify-center whitespace-nowrap select-none underline hover:decoration-transparent;
+    }
+    .sr-only {
+      @apply sr-only;
+    }
+    h1 {
+      @apply text-[3em] font-black;
+    }
+    h2 {
+      @apply text-[2.5em] font-bold;
+    }
+    h3 {
+      @apply text-[2em] font-bold;
+    }
+    h4 {
+      @apply text-[1.5em] font-medium;
+    }
+    h5 {
+      @apply text-[1em] font-medium;
+    }
+    h6 {
+      @apply text-[1em] font-medium opacity-50;
+    }
+    code {
+      @apply border px-[0.3em];
+    }
+    pre {
+      @apply border p-[1em] overflow-auto;
+      code {
+        @apply border-none p-0;
+      }
+    }
+    blockquote {
+      @apply text-center;
+    }
+    ul {
+      @apply list-outside list-disc pl-[1.2em];
+    }
+    ol {
+      @apply list-outside list-decimal pl-[1.8em];
+    }
+    table {
+      th,
+      td {
+        @apply p-[1em] border;
+      }
+    }
+    sub,
+    sup {
+      @apply leading-normal;
+    }
+    .footnotes {
+      @apply text-[0.7em] opacity-70;
+    }
+  }
+</style>
