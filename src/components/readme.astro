@@ -5,9 +5,30 @@ const readme = await octokit.rest.repos.getReadme({
   owner: user,
   repo: user,
   mediaType: {
-    format: "html",
+    format: "raw",
   },
 });
+import { unified } from "unified";
+import remarkParse from "remark-parse";
+import remarkFrontmatter from "remark-frontmatter";
+import remarkGFM from "remark-gfm";
+import remarkRehype from "remark-rehype";
+import rehypeRaw from "rehype-raw";
+import rehypeSlug from "rehype-slug";
+import rehypeAutolinkHeadings from "rehype-autolink-headings";
+import rehypeSanitize from "rehype-sanitize";
+import rehypeStringify from "rehype-stringify";
+const html = await unified()
+  .use(remarkParse)
+  .use(remarkFrontmatter)
+  .use(remarkGFM)
+  .use(remarkRehype, { allowDangerousHtml: true, clobberPrefix: "" })
+  .use(rehypeRaw)
+  .use(rehypeSlug)
+  .use(rehypeAutolinkHeadings, { behavior: "wrap" })
+  .use(rehypeSanitize, { clobber: undefined })
+  .use(rehypeStringify)
+  .process(readme.data);
 ---
 
-<section class="px-[0.3em]" set:html={readme.data} />
+<article class="px-[0.3em]" set:html={html} />
